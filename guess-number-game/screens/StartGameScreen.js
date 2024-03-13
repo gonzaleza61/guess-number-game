@@ -21,5 +21,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#72063c",
     elevation: 8, //android only
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowRadius: 8,
+    shadowOpacity: 0.25,
   },
 });

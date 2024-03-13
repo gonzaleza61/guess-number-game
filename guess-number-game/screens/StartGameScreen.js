@@ -20,5 +20,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
     borderRadius: 8,
     backgroundColor: "#72063c",
+    elevation: 8, //android only
   },
 });

@@ -14,9 +14,33 @@ function generateRandomBetween(min, max, exclude) {
   }
 }
 
+let minBoundary = 1;
+let maxBoundary = 100;
+
 function GameScreen({ userNumber }) {
-  const initialGuess = generateRandomBetween(1, 100, userNumber);
+  const initialGuess = generateRandomBetween(
+    minBoundary,
+    maxBoundary,
+    userNumber
+  );
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+
+  function nextGuessHandler(direction) {
+    //lower
+    //greater
+
+    if (direction === "lower") {
+      maxBoundary = currentGuess - 1;
+    } else {
+      minBoundary = currentGuess + 1;
+    }
+    const newRndNumber = generateRandomBetween(
+      minBoundary,
+      maxBoundary,
+      currentGuess
+    );
+    setCurrentGuess(newRndNumber);
+  }
 
   return (
     <>
@@ -25,8 +49,14 @@ function GameScreen({ userNumber }) {
         <Title title="Opponent's Guess" />
         <NumberContainer>{currentGuess}</NumberContainer>
         <Text>Higher Or Lower</Text>
-        <PrimaryButton>+</PrimaryButton>
-        <PrimaryButton>-</PrimaryButton>
+        <View style={styles.button}>
+          <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
+            -
+          </PrimaryButton>
+          <PrimaryButton onPress={nextGuessHandler.bind(this, "higher")}>
+            +
+          </PrimaryButton>
+        </View>
       </View>
     </>
   );
@@ -36,6 +66,10 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
+  },
+  button: {
+    flex: 1,
+    flexDirection: "row",
   },
 });
 

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import Title from "../components/ui/Title";
 import { useState } from "react";
 import NumberContainer from "../components/game/NumberContainer";
@@ -28,12 +28,22 @@ function GameScreen({ userNumber }) {
   function nextGuessHandler(direction) {
     //lower
     //greater
+    if (
+      (direction === "lower" && currentGuess < userNumber) ||
+      (direction === "greater" && currentGuess > userNumber)
+    ) {
+      Alert.alert("liar liar pants on fire", "this is wrong", [
+        { text: "sorry", style: "cancel" },
+      ]);
+      return;
+    }
 
     if (direction === "lower") {
       maxBoundary = currentGuess - 1;
     } else {
       minBoundary = currentGuess + 1;
     }
+    console.log(minBoundary, maxBoundary);
     const newRndNumber = generateRandomBetween(
       minBoundary,
       maxBoundary,
